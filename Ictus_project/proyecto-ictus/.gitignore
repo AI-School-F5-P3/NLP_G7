@@ -1,0 +1,5 @@
+# Archivos y directorios a ignorar por Git
+__pycache__
+*.pyc
+.vscode
+.idea
