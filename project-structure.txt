@@ -1,0 +1,50 @@
+youtube-hate-speech/
+├── .env                        # Variables de entorno
+├── .gitignore                  # Archivos a ignorar por git
+├── README.md                   # Documentación principal
+├── requirements.txt            # Dependencias del proyecto
+├── Dockerfile                  # Para containerización futura
+├── docker-compose.yml          # Configuración de servicios
+│
+├── app/                        # Aplicación Streamlit
+│   ├── __init__.py
+│   ├── app.py                # Punto de entrada de la aplicación
+│   ├── db.py                  # Configuración de base de datos
+│
+├── src/                        # Código fuente principal
+│   ├── __init__.py
+│   ├── data/                  # Manejo de datos
+│   │   ├── __init__.py
+│   │   ├── eda_preprocess.py
+│   │     
+│   ├── models_definition/                # Modelos de ML/DL
+│   │   ├── __init__.py
+│   │   ├── base_model.py
+│   │   ├── ml_models.py      # Modelos tradicionales
+│   │   ├── deep_models.py    # Modelos de deep learning
+│   │   └── transformer_models.py  # Modelos de transformers
+│   │
+│
+├── notebooks/                  # Jupyter notebooks para experimentación
+│   ├── 01_data_exploration.ipynb
+│   ├── 02_model_development.ipynb
+│   └── 03_model_evaluation.ipynb
+│
+├── tests/                      # Tests unitarios
+│   ├── __init__.py
+│   ├── test_models.py
+│   ├── test_preprocessing.py
+│   └── test_api.py
+│
+├── data/                      # Datos del proyecto
+│   ├── raw/                   # Datos sin procesar
+│   ├── processed/             # Datos procesados
+│  
+├── mlflow/                    # Configuración y logs de MLFlow
+│    └── mlruns/│
+│ 
+├── models/                    # Modelos entrenados (.pkl)
+    └── xgboost/
+
+
+
