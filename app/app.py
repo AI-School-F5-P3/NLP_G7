@@ -10,6 +10,11 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import re
 from nltk.corpus import stopwords
 import nltk
+import os
+from dotenv import load_dotenv
+
+# Cargar variables de entorno
+load_dotenv()
 
 # Asegurar que tenemos las stopwords
 try:
@@ -56,15 +61,21 @@ def predict_text(text, model_dict):
         st.error(f"Error en la predicción: {str(e)}")
         return None
 
-def get_youtube_comments(video_url, api_key):
+def get_youtube_comments(video_url):
     """Obtiene los comentarios de un video de YouTube."""
     try:
+        # Obtener API key desde variables de entorno
+        api_key = os.getenv('API_YOUTUBE')
+        if not api_key:
+            st.error("No se encontró la API key de YouTube en las variables de entorno")
+            return None, None
+            
         # Extraer video ID de la URL
         if 'v=' in video_url:
             video_id = video_url.split('v=')[1].split('&')[0]
         else:
             st.error("URL de video inválida")
-            return None
+            return None, None
             
         youtube = build('youtube', 'v3', developerKey=api_key)
         
@@ -320,17 +331,15 @@ def main():
     
     elif page == "Analizar Video":
         st.header("Análisis de Video de YouTube")
-        
-        api_key = st.text_input("Ingresa tu API Key de YouTube:", type="password")
         video_url = st.text_input("Ingresa la URL del video de YouTube:")
         
         if st.button("Analizar Video"):
-            if not api_key or not video_url:
-                st.error("Por favor, ingresa tanto la API Key como la URL del video")
+            if not video_url:
+                st.error("Por favor, ingresa la URL del video")
                 return
             
             with st.spinner('Obteniendo y analizando comentarios...'):
-                comments, video_id = get_youtube_comments(video_url, api_key)
+                comments, video_id = get_youtube_comments(video_url)
                 
                 if comments and video_id:
                     st.info(f"Analizando {len(comments)} comentarios...")
@@ -351,19 +360,17 @@ def main():
         
         history_df = get_analysis_history()
         if not history_df.empty:
-            st.dataframe(
-                history_df,
-                columns=[
-                    'video_id',
-                    'total_comments',
-                    'hate_comments',
-                    'hate_percentage',
-                    'avg_hate_prob',
-                    'last_analysis'
-                ]
-            )
+            display_df = history_df.copy()
+            display_df = display_df[[
+                'video_id',
+                'total_comments',
+                'hate_comments',
+                'hate_percentage',
+                'avg_hate_prob',
+                'last_analysis'
+            ]]
+            st.dataframe(display_df)
             
-            # Ver detalles de un video específico
             selected_video = st.selectbox(
                 "Selecciona un video para ver detalles:",
                 history_df['video_id'].tolist()

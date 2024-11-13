@@ -3,6 +3,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 
+# Cargar variables de entorno
 load_dotenv()
 
 def connect_db():
