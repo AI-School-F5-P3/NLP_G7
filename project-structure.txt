@@ -1,0 +1,36 @@
+NLP_G7/
+├── .env                        # Variables de entorno
+├── .gitignore                  # Archivos a ignorar por git
+├── README.md                   # Documentación principal
+├── requirements.txt            # Dependencias del proyecto
+│
+├── app/                        # Aplicación Streamlit
+│   ├── __init__.py
+│   ├── app.py                # Punto de entrada de la aplicación
+│   ├── db.py                  # Configuración de base de datos
+│
+├── src/                        # Código fuente principal
+│   ├── __init__.py
+│   ├── data/                  # Manejo de datos
+│   │   ├── __init__.py
+│   │   ├── eda_preprocess.py
+│   │   ├── 01_EDA.ipynb
+│   │     
+│   ├── models_definition/                # Modelos de ML/DL
+│       ├── __init__.py
+│       ├── hate_speech_model.py
+│
+├── tests/                      # Tests unitarios
+│   ├── __init__.py
+│   ├── unit_test.py
+│  │
+├── data/                      # Datos del proyecto
+│   ├── raw/                   # Datos sin procesar
+│   ├── processed/             # Datos procesados
+│  
+│
+├── models/                    # Modelos entrenados (.pkl)
+    └── hate_speech_model.pkl
+
+
+
